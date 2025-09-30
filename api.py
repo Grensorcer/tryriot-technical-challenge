@@ -45,11 +45,12 @@ def setup():
     def sign(payload: Dict):
         return _sign(payload, static_secret)
 
-    @app.post("/verify")
-    def verify(signed: Signed):
+    @app.post("/verify", responses={ 204: {}, 400: {}})
+    def verify(signed: Signed, response: Response):
         if _verify(signed, static_secret):
-            return Response(status_code=status.HTTP_204_NO_CONTENT)
+            response.status_code = status.HTTP_204_NO_CONTENT
         else:
-            return Response(status_code=status.HTTP_400_BAD_REQUEST)
+            response.status_code = status.HTTP_400_BAD_REQUEST
+        return
 
     return app
