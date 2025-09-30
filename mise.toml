@@ -1,0 +1,15 @@
+[tools]
+python = "3.13"
+
+[env]
+_.python.venv = { path = ".venv", create = true, python = "3.13" }
+
+[tasks.run]
+description = "Run the development server"
+alias = "r"
+run = "fastapi dev main.py"
+
+[tasks.install]
+description = "Install dependencies"
+alias = "i"
+run = "pip install -r requirements.txt"
