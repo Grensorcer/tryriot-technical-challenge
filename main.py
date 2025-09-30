@@ -1,3 +1,3 @@
-from app import setup
+from api import setup
 
 app = setup()
