@@ -1,4 +1,3 @@
-from context import examples, non_encoded_examples
 from cryptography.base64 import encode, decode
 
 values = [
