@@ -38,20 +38,20 @@ def setup():
     app = FastAPI()
     load_dotenv()
 
-    @app.post("/encrypt/")
+    @app.post("/encrypt")
     def encrypt(payload: Annotated[Payload, Body()]):
         return _encode(payload, base64.encode)
 
-    @app.post("/decrypt/")
+    @app.post("/decrypt")
     def decrypt(payload: Annotated[EncodedPayload, Body()]):
         return _decode(payload, base64.decode)
 
-    @app.post("/sign/")
+    @app.post("/sign")
     def sign(payload: Annotated[Payload, Body()]):
         key = get_or_create_key(32)
         return _sign(payload, key, hmac.hmac256)
 
-    @app.post("/verify/", responses={204: {}, 400: {}})
+    @app.post("/verify", responses={204: {}, 400: {}})
     def verify(signed: Signed, response: Response):
         key = get_or_create_key(32)
         if _verify(signed, key, hmac.hmac256):

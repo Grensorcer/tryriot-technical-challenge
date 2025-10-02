@@ -5,8 +5,13 @@ python = "3.13"
 _.python.venv = { path = ".venv", create = true, python = "3.13" }
 
 [tasks.run]
-description = "Run the development server"
+description = "Run the production server"
 alias = "r"
+run = "fastapi run main.py"
+
+[tasks.dev]
+description = "Run the development server"
+alias = "d"
 run = "fastapi dev main.py"
 
 [tasks.install]
