@@ -10,4 +10,4 @@ schema.config.output.sanitization.update(enabled=False)
 
 @schema.parametrize()
 def test_routes(case):
-    case.call_and_validate(headers={"Authorization": "Bearer secret-token"})
+    case.call_and_validate()
