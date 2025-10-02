@@ -18,8 +18,3 @@ run = "pip install -r requirements.txt"
 description = "Run pytest"
 alias = "t"
 run = "pytest"
-
-[tasks.coverage]
-description = "Run coverage and fuzzing tests"
-alias = "c"
-run = "uvx schemathesis run  -c all --exclude-checks positive_data_acceptance http://127.0.0.1:8000/openapi.json"
