@@ -1,10 +1,8 @@
-from api_types import Signed
 from context import api, examples, non_encoded_examples
 from cryptography import base64
 from fastapi import status
 from fastapi.testclient import TestClient
 from faker import Faker
-from faker.providers import python
 
 app = api.setup()
 client = TestClient(app)
