@@ -208,3 +208,7 @@ __marimo__/
 
 # VSCODE
 .vscode/
+
+# ENV
+.env
+.env.*

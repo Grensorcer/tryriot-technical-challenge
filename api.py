@@ -8,7 +8,8 @@ from api_types import (
     Signer,
 )
 from cryptography import base64, hmac
-import secrets
+from cryptography.key import get_or_create_key
+from dotenv import load_dotenv
 from fastapi import FastAPI, Response, status
 
 
@@ -33,9 +34,8 @@ def _verify(signed: Signed, secret: bytes, method: Signer) -> bool:
 
 
 def setup():
-    # TODO: Setup environment variable.
-    static_secret = secrets.token_bytes(32)
     app = FastAPI()
+    load_dotenv()
 
     @app.post("/encrypt")
     def encrypt(payload: Payload):
@@ -47,11 +47,13 @@ def setup():
 
     @app.post("/sign")
     def sign(payload: Payload):
-        return _sign(payload, static_secret, hmac.hmac256)
+        key = get_or_create_key(32)
+        return _sign(payload, key, hmac.hmac256)
 
     @app.post("/verify", responses={204: {}, 400: {}})
     def verify(signed: Signed, response: Response):
-        if _verify(signed, static_secret, hmac.hmac256):
+        key = get_or_create_key(32)
+        if _verify(signed, key, hmac.hmac256):
             response.status_code = status.HTTP_204_NO_CONTENT
         else:
             response.status_code = status.HTTP_400_BAD_REQUEST
