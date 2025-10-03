@@ -20,7 +20,7 @@ If you are a Mise user, you may simply run `mise trust && mise install && mise r
 ## Running
 
 1. Using fastapi (installed in the requirements.txt file), run `fastapi run main.py` to start the production server. Replace `run` with `dev` for the development server.
-2. Tests may be run using pytest by running: `pytest`
+2. Once the server is running, tests may be run using pytest by running: `pytest`
 
 ### Mise
 
@@ -29,4 +29,4 @@ Using mise, multiple tasks are set up in mise.toml to start the server and run t
 
 ## Known bugs
 
-* `test_api_schema.py` might occasionally fail on UTF-8 encoding errors. This seems to be due to some fastapi json parsing function that does not handle UTF-8 surrogates.
+* `test_api_schema.py` might occasionally fail on UTF-8 encoding errors. This seems to be due to some starlette/pydantic json parsing function that does not handle non UTF-8 characters inputs correctly: https://github.com/fastapi/fastapi/discussions/10173
