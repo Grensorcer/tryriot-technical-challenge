@@ -25,8 +25,3 @@ If you are a Mise user, you may simply run `mise trust && mise install && mise r
 ### Mise
 
 Using mise, multiple tasks are set up in mise.toml to start the server and run tests.
-
-
-## Known bugs
-
-* `test_api_schema.py` might occasionally fail on UTF-8 encoding errors. This seems to be due to some starlette/pydantic json parsing function that does not handle non UTF-8 characters inputs correctly: https://github.com/fastapi/fastapi/discussions/10173

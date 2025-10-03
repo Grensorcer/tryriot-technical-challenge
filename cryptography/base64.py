@@ -26,9 +26,13 @@ def decode(value: bytes) -> Any | None:
     @return: decoded json object or None on failure
     """
     try:
+        print(value)
         res = b64decode(value, validate=True).decode()
     except binascii.Error as err:
-        print(f"[decode][base64] error: {err}")
+        print(f"[decode][base64] warning: {err} | ignoring value")
+        return None
+    except UnicodeDecodeError as err:
+        print(f"[decode[base64] error: {err} | ignoring value")
         return None
 
     try:
