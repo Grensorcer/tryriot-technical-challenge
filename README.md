@@ -31,8 +31,8 @@ Building and running the production server with a generated token would look lik
 * `docker build -t <image_name> --progress=plain --target=prod .`
 * `SECRET=$(head -c 32 /dev/random | xxd -c 32 -ps); docker run --rm -e SECRET_TOKEN=$SECRET -d -p 8080:80 <image_name>`
 
-Building and running tests with a generated token would look like:
-* `SECRET=$(head -c 32 /dev/random | xxd -c 32 -ps); docker build -t <image_name> --env SECRET_TOKEN=$SECRET --target=test --no-cache .`
+Building and running tests would look like:
+* `docker build -t <image_name> --target=test --no-cache .`
 
 ## Local installation
 
