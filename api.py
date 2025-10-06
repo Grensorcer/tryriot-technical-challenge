@@ -9,7 +9,7 @@ from api_types import (
     Signer,
 )
 from cryptography import base64, hmac
-from cryptography.key import get_or_create_key
+from cryptography.secret import get_or_create_secret
 from dotenv import load_dotenv
 from fastapi import Body, FastAPI, Response, status
 
@@ -37,6 +37,8 @@ def _verify(signed: Signed, secret: bytes, method: Signer) -> bool:
 def setup():
     app = FastAPI()
     load_dotenv()
+    secret_name = "SECRET_TOKEN"
+    secret = get_or_create_secret(secret_name)
 
     @app.post("/encrypt")
     def encrypt(payload: Annotated[Payload, Body()]):
@@ -48,13 +50,11 @@ def setup():
 
     @app.post("/sign")
     def sign(payload: Annotated[Payload, Body()]):
-        key = get_or_create_key(32)
-        return _sign(payload, key, hmac.hmac256)
+        return _sign(payload, secret, hmac.hmac256)
 
     @app.post("/verify", responses={204: {}, 400: {}})
     def verify(signed: Signed, response: Response):
-        key = get_or_create_key(32)
-        if _verify(signed, key, hmac.hmac256):
+        if _verify(signed, secret, hmac.hmac256):
             response.status_code = status.HTTP_204_NO_CONTENT
         else:
             response.status_code = status.HTTP_400_BAD_REQUEST
