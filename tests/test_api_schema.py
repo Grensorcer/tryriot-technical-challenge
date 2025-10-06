@@ -1,9 +1,9 @@
 from context import api
 import schemathesis
 
-base_url = "http://127.0.0.1:8000/"
 app = api.setup()
-schema = schemathesis.openapi.from_url(base_url + app.openapi_url)
+
+schema = schemathesis.openapi.from_asgi(app.openapi_url, app)
 schema.config.checks.update(excluded_check_names=["positive_data_acceptance"])
 schema.config.output.sanitization.update(enabled=False)
 
