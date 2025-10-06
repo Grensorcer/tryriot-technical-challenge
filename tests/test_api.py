@@ -104,8 +104,8 @@ def test_random_json():
     fake = Faker()
     data = [
         fake.pydict(
-            1,
-            10,
+            5,
+            True,
             value_types=[str, int, float, bool],
             allowed_types=[str, int, float, bool],
         )
